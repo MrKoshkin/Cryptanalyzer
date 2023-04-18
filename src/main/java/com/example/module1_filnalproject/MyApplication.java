@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ import java.io.File;
 
 public class MyApplication extends Application {
     private TextField textField1;
+    private Text text1;
     private Button okButton;
     private Button cancelButton;
 
@@ -38,8 +40,9 @@ public class MyApplication extends Application {
             cancelButton.setPrefHeight(30); // высота кнопки
 
             //Выбор режима
-            Text text1 = new Text("Выберите режим");
-            text1.setFont(new Font("Arial", 20));
+            text1 = new Text("Выберите режим");
+            Font headerBoldFont = Font.font("Arial", FontWeight.BOLD, 20);
+            text1.setFont(headerBoldFont);
         }
         Button selectFileButton = new Button("Выбрать файл");
         selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -60,9 +63,9 @@ public class MyApplication extends Application {
         hbox.setAlignment(Pos.CENTER);
 
         // Создаем контейнер VBox и добавляем в него текстовые поля и кнопки
-        VBox root = new VBox(50); // Отступ между компонентами
+        VBox root = new VBox(20); // Отступ между компонентами
         root.setPadding(new Insets(40)); // Отступы
-        root.getChildren().addAll( selectFileButton, hbox);
+        root.getChildren().addAll(text1, selectFileButton, hbox);
 
         Scene scene = new Scene(root, 480, 200);
         stage.setTitle("Итоговый проект по Модулю 1");
