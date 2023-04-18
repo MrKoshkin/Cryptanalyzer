@@ -2,6 +2,7 @@ package com.example.module1_filnalproject;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,8 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class MyApplication extends Application {
     private TextField textField1;
@@ -19,19 +24,35 @@ public class MyApplication extends Application {
 
     @Override
     public void start(Stage stage) {
-        textField1 = new TextField();
-        textField1.setPrefWidth(400);
-        textField1.setPrefHeight(40);
+        {
+//            textField1 = new TextField();
+//            textField1.setPrefWidth(400);
+//            textField1.setPrefHeight(40);
 
-        okButton = new Button("Ок");
-        okButton.setPrefWidth(100); // ширина кнопки
-        okButton.setPrefHeight(30); // высота кнопки
+            okButton = new Button("Ок");
+            okButton.setPrefWidth(100); // ширина кнопки
+            okButton.setPrefHeight(30); // высота кнопки
 
-        cancelButton = new Button("Отмена");
-        cancelButton.setPrefWidth(100); // ширина кнопки
-        cancelButton.setPrefHeight(30); // высота кнопки
+            cancelButton = new Button("Отмена");
+            cancelButton.setPrefWidth(100); // ширина кнопки
+            cancelButton.setPrefHeight(30); // высота кнопки
 
-        FileChooser fileChooser = new FileChooser();
+            //Выбор режима
+            Text text1 = new Text("Выберите режим");
+            text1.setFont(new Font("Arial", 20));
+        }
+        Button selectFileButton = new Button("Выбрать файл");
+        selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FileChooser fileChooser = new FileChooser();
+                File selectedFile = fileChooser.showOpenDialog(stage);
+                if (selectedFile != null) {
+                    System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
+                }
+            }
+        });
+
 
         // Создаем контейнер и добавляем в него кнопки
         HBox hbox = new HBox(100); // 10 - отступ между кнопками
@@ -39,9 +60,9 @@ public class MyApplication extends Application {
         hbox.setAlignment(Pos.CENTER);
 
         // Создаем контейнер VBox и добавляем в него текстовые поля и кнопки
-        VBox root = new VBox(50);
-        root.setPadding(new Insets(40));
-        root.getChildren().addAll(textField1, hbox);
+        VBox root = new VBox(50); // Отступ между компонентами
+        root.setPadding(new Insets(40)); // Отступы
+        root.getChildren().addAll( selectFileButton, hbox);
 
         Scene scene = new Scene(root, 480, 200);
         stage.setTitle("Итоговый проект по Модулю 1");
