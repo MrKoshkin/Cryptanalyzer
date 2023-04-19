@@ -21,8 +21,8 @@ import java.io.File;
 public class MyApplication extends Application {
     private Stage stage;
     Scene scene1, scene2;
-    private TextField pathTextField;
-    private Text text1;
+    private TextField pathTextField, keyTextField;
+    private Text text1, text2;
     private Button mode1, mode2, getKeyButton, selectFileButton;
 
     @Override
@@ -70,29 +70,47 @@ public class MyApplication extends Application {
                 }
             });
 
+            // Текстовое поле с Path
             pathTextField = new TextField();
             pathTextField.setPrefWidth(500);
             pathTextField.setPrefHeight(20);
 
+            text2 = new Text("Введите ключ (сдвиг): ");
+            text2.setFont(Font.font("Arial", 14));
+
+            keyTextField = new TextField();
+            keyTextField.setPrefWidth(50);
+            keyTextField.setPrefHeight(20);
         }
 
 
 
 
         // Создаем контейнер на сцене 2 для выбора файла
-        HBox hbox1 = new HBox(30); // 10 - отступ между кнопками
-        hbox1.getChildren().addAll(selectFileButton, pathTextField);
-        hbox1.setAlignment(Pos.CENTER_LEFT);
-        hbox1.setPadding(new Insets(50)); // Отступы
+        HBox pathContainer = new HBox(30); // 10 - отступ между кнопками
+        pathContainer.getChildren().addAll(selectFileButton, pathTextField);
+        pathContainer.setAlignment(Pos.TOP_LEFT);
+        pathContainer.setPadding(new Insets(50)); // Отступы
 
-        // Создаем контейнер VBox и добавляем в него текстовые поля и кнопки
+        // Создаем контейнер на сцене 2 для введения ключа
+        HBox keyContainer = new HBox(30); // 10 - отступ между компонентами
+        keyContainer.getChildren().addAll(text2, keyTextField);
+//        keyContainer.setAlignment(Pos.TOP_LEFT);
+        keyContainer.setPadding(new Insets(50)); // Отступы
+
+        VBox scene2VBOX = new VBox(30);
+        scene2VBOX.getChildren().addAll(pathContainer, keyContainer);
+        scene2VBOX.setAlignment(Pos.CENTER);
+        scene2VBOX.setPadding(new Insets(50)); // Отступы
+
+        // Создаем контейнер root на Сцене 1
         VBox root = new VBox(30); // Отступ между компонентами
         root.setPadding(new Insets(50)); // Отступы
         root.getChildren().addAll(text1, mode1, mode2);
         root.setAlignment(Pos.CENTER);
 
-        scene1 = new Scene(root, 840, 400);
-        scene2 = new Scene(hbox1, 840, 400);
+        scene1 = new Scene(root, 840, 300);
+        scene2 = new Scene(scene2VBOX, 840, 300);
         stage.setTitle("Итоговый проект по Модулю 1");
         stage.setScene(scene1);
         stage.show();
