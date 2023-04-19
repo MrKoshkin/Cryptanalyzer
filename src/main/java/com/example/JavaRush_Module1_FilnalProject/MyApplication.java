@@ -58,15 +58,12 @@ public class MyApplication extends Application {
         {
             //Выбор файла
             selectFileButton = new Button("Выбрать файл");
-            selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    FileChooser fileChooser = new FileChooser();
-                    File selectedFile = fileChooser.showOpenDialog(stage);
-                    if (selectedFile != null) {
-                        pathTextField.setText(selectedFile.getAbsolutePath());
-                        System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
-                    }
+            selectFileButton.setOnAction(event -> {
+                FileChooser fileChooser = new FileChooser();
+                File selectedFile = fileChooser.showOpenDialog(stage);
+                if (selectedFile != null) {
+                    pathTextField.setText(selectedFile.getAbsolutePath());
+                    System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
                 }
             });
 
@@ -83,6 +80,15 @@ public class MyApplication extends Application {
             keyTextField = new TextField();
             keyTextField.setPrefWidth(50);
             keyTextField.setPrefHeight(20);
+
+            // Кнопка зашифровать
+            encryptButton = new Button("Зашифровать");
+            encryptButton.setOnAction(actionEvent -> {
+
+            });
+
+            decryptButton = new Button("Расшифровать");
+            backButton = new Button("Назад");
         }
 
 

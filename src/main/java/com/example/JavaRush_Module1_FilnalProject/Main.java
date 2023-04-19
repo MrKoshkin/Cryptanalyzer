@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         setAlphabet();  //Создаем алфавитные справочники
 //        System.out.println(upperCaseAlphabet);
-        System.out.println(symbols);
+        System.out.println(mergedAlphabet);
         stringBuilder = readFile(Path.of("C:\\Users\\s.koshkin\\Desktop\\СЗ на лицензию Smartsheet.txt"));  //Записываем в стрингбилдер наш файл
         int key = -3;
         stringBuilder = Coder.encrypt(stringBuilder, key);      //Шифруем файл со сдвигом key
