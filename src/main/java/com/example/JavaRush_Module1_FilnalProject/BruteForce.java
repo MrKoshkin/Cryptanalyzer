@@ -1,4 +1,4 @@
-package com.example.module1_filnalproject;
+package com.example.JavaRush_Module1_FilnalProject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -6,8 +6,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.module1_filnalproject.Coder.*;
-import static com.example.module1_filnalproject.Main.*;
+import static com.example.JavaRush_Module1_FilnalProject.Coder.*;
+import static com.example.JavaRush_Module1_FilnalProject.Main.*;
 
 
 class BruteForce {

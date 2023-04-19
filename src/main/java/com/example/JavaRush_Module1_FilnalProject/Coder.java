@@ -1,9 +1,9 @@
-package com.example.module1_filnalproject;
+package com.example.JavaRush_Module1_FilnalProject;
 
 import java.util.ArrayList;
 
-import static com.example.module1_filnalproject.BruteForce.*;
-import static com.example.module1_filnalproject.Main.*;
+import static com.example.JavaRush_Module1_FilnalProject.BruteForce.*;
+import static com.example.JavaRush_Module1_FilnalProject.Main.*;
 
 class Coder {
     protected static StringBuilder encrypt(StringBuilder stringBuilder, int key) {

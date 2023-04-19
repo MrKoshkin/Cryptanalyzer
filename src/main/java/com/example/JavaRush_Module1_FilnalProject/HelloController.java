@@ -1,4 +1,4 @@
-package com.example.module1_filnalproject;
+package com.example.JavaRush_Module1_FilnalProject;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

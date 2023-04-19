@@ -6,6 +6,6 @@ module com.example.module1_filnalproject {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
 
-    opens com.example.module1_filnalproject to javafx.fxml;
-    exports com.example.module1_filnalproject;
+    opens com.example.JavaRush_Module1_FilnalProject to javafx.fxml;
+    exports com.example.JavaRush_Module1_FilnalProject;
 }

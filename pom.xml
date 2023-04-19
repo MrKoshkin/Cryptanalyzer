@@ -81,7 +81,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.module1_filnalproject/com.example.module1_filnalproject.MyApplication
+                                com.example.module1_filnalproject/com.example.JavaRush_Module1_FilnalProject.MyApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -1,4 +1,4 @@
-package com.example.module1_filnalproject;
+package com.example.JavaRush_Module1_FilnalProject;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -23,7 +23,7 @@ public class MyApplication extends Application {
     Scene scene1, scene2;
     private TextField pathTextField, keyTextField;
     private Text text1, text2;
-    private Button mode1, mode2, getKeyButton, selectFileButton;
+    private Button mode1Button, mode2Button, selectFileButton, encryptButton, decryptButton, backButton;
 
     @Override
     public void start(Stage stage) {
@@ -37,10 +37,10 @@ public class MyApplication extends Application {
             text1.setFont(headerBoldFont);
 
             //Шифр цезаря по ключу
-            mode1 = new Button("Шифрование / расшифровка");
-            mode1.setPrefWidth(300); // ширина кнопки
-            mode1.setPrefHeight(40); // высота кнопки
-            mode1.setOnAction(new EventHandler<ActionEvent>() {
+            mode1Button = new Button("Шифрование / расшифровка");
+            mode1Button.setPrefWidth(300); // ширина кнопки
+            mode1Button.setPrefHeight(40); // высота кнопки
+            mode1Button.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     stage.setScene(scene2);
@@ -49,9 +49,9 @@ public class MyApplication extends Application {
             });
 
             //Криптоанализ Brute Force
-            mode2 = new Button("Криптоанализ методом brute force");
-            mode2.setPrefWidth(300); // ширина кнопки
-            mode2.setPrefHeight(40); // высота кнопки
+            mode2Button = new Button("Криптоанализ методом brute force");
+            mode2Button.setPrefWidth(300); // ширина кнопки
+            mode2Button.setPrefHeight(40); // высота кнопки
         }
 
         // Сцена 2 конфигурация
@@ -75,9 +75,11 @@ public class MyApplication extends Application {
             pathTextField.setPrefWidth(500);
             pathTextField.setPrefHeight(20);
 
+            // Текст
             text2 = new Text("Введите ключ (сдвиг): ");
             text2.setFont(Font.font("Arial", 14));
 
+            // Текстовое поле для ввода ключа
             keyTextField = new TextField();
             keyTextField.setPrefWidth(50);
             keyTextField.setPrefHeight(20);
@@ -106,7 +108,7 @@ public class MyApplication extends Application {
         // Создаем контейнер root на Сцене 1
         VBox root = new VBox(30); // Отступ между компонентами
         root.setPadding(new Insets(50)); // Отступы
-        root.getChildren().addAll(text1, mode1, mode2);
+        root.getChildren().addAll(text1, mode1Button, mode2Button);
         root.setAlignment(Pos.CENTER);
 
         scene1 = new Scene(root, 840, 300);

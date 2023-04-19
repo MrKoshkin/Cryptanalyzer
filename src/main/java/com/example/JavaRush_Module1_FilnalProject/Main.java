@@ -1,4 +1,4 @@
-package com.example.module1_filnalproject;
+package com.example.JavaRush_Module1_FilnalProject;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
