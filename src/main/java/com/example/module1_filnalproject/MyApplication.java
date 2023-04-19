@@ -19,57 +19,82 @@ import javafx.stage.Stage;
 import java.io.File;
 
 public class MyApplication extends Application {
-    private TextField textField1;
+    private Stage stage;
+    Scene scene1, scene2;
+    private TextField pathTextField;
     private Text text1;
-    private Button okButton;
-    private Button cancelButton;
+    private Button mode1, mode2, getKeyButton, selectFileButton;
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
+
+        // Сцена 1 конфигурация
         {
-//            textField1 = new TextField();
-//            textField1.setPrefWidth(400);
-//            textField1.setPrefHeight(40);
-
-            okButton = new Button("Ок");
-            okButton.setPrefWidth(100); // ширина кнопки
-            okButton.setPrefHeight(30); // высота кнопки
-
-            cancelButton = new Button("Отмена");
-            cancelButton.setPrefWidth(100); // ширина кнопки
-            cancelButton.setPrefHeight(30); // высота кнопки
-
             //Выбор режима
             text1 = new Text("Выберите режим");
             Font headerBoldFont = Font.font("Arial", FontWeight.BOLD, 20);
             text1.setFont(headerBoldFont);
-        }
-        Button selectFileButton = new Button("Выбрать файл");
-        selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                FileChooser fileChooser = new FileChooser();
-                File selectedFile = fileChooser.showOpenDialog(stage);
-                if (selectedFile != null) {
-                    System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
+
+            //Шифр цезаря по ключу
+            mode1 = new Button("Шифрование / расшифровка");
+            mode1.setPrefWidth(300); // ширина кнопки
+            mode1.setPrefHeight(40); // высота кнопки
+            mode1.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    stage.setScene(scene2);
+
                 }
-            }
-        });
+            });
+
+            //Криптоанализ Brute Force
+            mode2 = new Button("Криптоанализ методом brute force");
+            mode2.setPrefWidth(300); // ширина кнопки
+            mode2.setPrefHeight(40); // высота кнопки
+        }
+
+        // Сцена 2 конфигурация
+        {
+            //Выбор файла
+            selectFileButton = new Button("Выбрать файл");
+            selectFileButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    FileChooser fileChooser = new FileChooser();
+                    File selectedFile = fileChooser.showOpenDialog(stage);
+                    if (selectedFile != null) {
+                        pathTextField.setText(selectedFile.getAbsolutePath());
+                        System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
+                    }
+                }
+            });
+
+            pathTextField = new TextField();
+            pathTextField.setPrefWidth(500);
+            pathTextField.setPrefHeight(20);
+
+        }
 
 
-        // Создаем контейнер и добавляем в него кнопки
-        HBox hbox = new HBox(100); // 10 - отступ между кнопками
-        hbox.getChildren().addAll(okButton, cancelButton);
-        hbox.setAlignment(Pos.CENTER);
+
+
+        // Создаем контейнер на сцене 2 для выбора файла
+        HBox hbox1 = new HBox(30); // 10 - отступ между кнопками
+        hbox1.getChildren().addAll(selectFileButton, pathTextField);
+        hbox1.setAlignment(Pos.CENTER_LEFT);
+        hbox1.setPadding(new Insets(50)); // Отступы
 
         // Создаем контейнер VBox и добавляем в него текстовые поля и кнопки
-        VBox root = new VBox(20); // Отступ между компонентами
-        root.setPadding(new Insets(40)); // Отступы
-        root.getChildren().addAll(text1, selectFileButton, hbox);
+        VBox root = new VBox(30); // Отступ между компонентами
+        root.setPadding(new Insets(50)); // Отступы
+        root.getChildren().addAll(text1, mode1, mode2);
+        root.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(root, 480, 200);
+        scene1 = new Scene(root, 840, 400);
+        scene2 = new Scene(hbox1, 840, 400);
         stage.setTitle("Итоговый проект по Модулю 1");
-        stage.setScene(scene);
+        stage.setScene(scene1);
         stage.show();
 
     }
@@ -79,9 +104,10 @@ public class MyApplication extends Application {
 
     }
 
-    // Обработчик события для кнопки "Сохранить"
-    private void getPath (ActionEvent event) {
-        String PathStr = textField1.getText(); // Получаем текст из текстового поля
-//        System.out.println("Сохранено: " + text); // Выводим текст в консоль (можно заменить на свою логику сохранения)
+    // Обработчик события для кнопки ""
+    private int getKey(ActionEvent event) {
+        String key = pathTextField.getText(); // Получаем ключ из текстового поля
+        System.out.println("Ключ: " + key); // Выводим ключ в консоль
+        return Integer.parseInt(key);
     }
 }
