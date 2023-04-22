@@ -58,8 +58,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
-<!--        Tests dependencies-->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>

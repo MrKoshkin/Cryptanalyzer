@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.JavaRush_Module1_FilnalProject.Coder.*;
+import static com.example.JavaRush_Module1_FilnalProject.Coder_old.*;
 import static com.example.JavaRush_Module1_FilnalProject.Main.*;
 
 
@@ -88,7 +88,7 @@ class BruteForce {
             System.out.println(symbols);
             stringBuilder = readFile(Path.of("C:\\Users\\s.koshkin\\Desktop\\СЗ на лицензию Smartsheet.txt"));  //Записываем в стрингбилдер наш файл
             int key = -3;
-            stringBuilder = Coder.encrypt(stringBuilder, key);      //Шифруем файл со сдвигом key
+            stringBuilder = Coder_old.encrypt(stringBuilder, key);      //Шифруем файл со сдвигом key
             stringBuilder = decrypt(stringBuilder, key);    //Дешифруем файл со сдвигом key
             writeFile(Path.of("log.txt"));
         }

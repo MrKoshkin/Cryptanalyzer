@@ -2,7 +2,6 @@ package com.example.JavaRush_Module1_FilnalProject;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -22,39 +21,14 @@ public class MyApplication extends Application {
     private Stage stage;
     Scene scene1, scene2;
     private TextField pathTextField, keyTextField;
-    private Text text1, text2;
-    private Button mode1Button, mode2Button, selectFileButton, encryptButton, decryptButton, backButton;
+    private Text textForKey, textMessage1;
+    private Button selectFileButton, encryptButton, decryptButton1, decryptButton2, decryptButton3, exitButton;
 
     @Override
     public void start(Stage stage) {
         this.stage = stage;
 
         // Сцена 1 конфигурация
-        {
-            //Выбор режима
-            text1 = new Text("Выберите режим");
-            Font headerBoldFont = Font.font("Arial", FontWeight.BOLD, 20);
-            text1.setFont(headerBoldFont);
-
-            //Шифр цезаря по ключу
-            mode1Button = new Button("Шифрование / расшифровка");
-            mode1Button.setPrefWidth(300); // ширина кнопки
-            mode1Button.setPrefHeight(40); // высота кнопки
-            mode1Button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    stage.setScene(scene2);
-
-                }
-            });
-
-            //Криптоанализ Brute Force
-            mode2Button = new Button("Криптоанализ методом brute force");
-            mode2Button.setPrefWidth(300); // ширина кнопки
-            mode2Button.setPrefHeight(40); // высота кнопки
-        }
-
-        // Сцена 2 конфигурация
         {
             //Выбор файла
             selectFileButton = new Button("Выбрать файл");
@@ -73,52 +47,91 @@ public class MyApplication extends Application {
             pathTextField.setPrefHeight(20);
 
             // Текст
-            text2 = new Text("Введите ключ (сдвиг): ");
-            text2.setFont(Font.font("Arial", 14));
+            textMessage1 = new Text("Приложение поддерживает только документы формата .docx и .txt");
+            textMessage1.setFont(Font.font("Arial", FontPosture.ITALIC, 12));
+
+            // Текст
+            textForKey = new Text("Введите ключ (сдвиг): ");
+            textForKey.setFont(Font.font("Arial", 14));
 
             // Текстовое поле для ввода ключа
             keyTextField = new TextField();
             keyTextField.setPrefWidth(50);
             keyTextField.setPrefHeight(20);
+//            Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
 
             // Кнопка зашифровать
-            encryptButton = new Button("Зашифровать");
+            encryptButton = new Button("Зашифровать по ключу");
+            encryptButton.setPrefWidth(300); // ширина кнопки
+            encryptButton.setPrefHeight(40); // высота кнопки
             encryptButton.setOnAction(actionEvent -> {
 
             });
 
-            decryptButton = new Button("Расшифровать");
-            backButton = new Button("Назад");
+            // Кнопка расшифровать по ключу
+            decryptButton1 = new Button("Расшифровать с помощью ключа");
+            decryptButton1.setPrefWidth(300); // ширина кнопки
+            decryptButton1.setPrefHeight(40); // высота кнопки
+            decryptButton1.setOnAction(actionEvent -> {
+
+            });
+
+            // Кнопка расшифровать по ключу
+            decryptButton2 = new Button("Расшифровать с помощью brute force");
+            decryptButton2.setPrefWidth(300); // ширина кнопки
+            decryptButton2.setPrefHeight(40); // высота кнопки
+            decryptButton2.setOnAction(actionEvent -> {
+
+            });
+
+            // Кнопка расшифровать по ключу
+            decryptButton3 = new Button("Расшифровать с помощью стат. анализа");
+            decryptButton3.setPrefWidth(300); // ширина кнопки
+            decryptButton3.setPrefHeight(40); // высота кнопки
+            decryptButton3.setOnAction(actionEvent -> {
+
+            });
+
+            // Кнопка выхода из программы
+            exitButton = new Button("Выход");
+            exitButton.setPrefWidth(300); // ширина кнопки
+            exitButton.setPrefHeight(40); // высота кнопки
+            exitButton.setOnAction(actionEvent -> {
+                System.exit(0);
+            });
         }
 
 
 
 
-        // Создаем контейнер на сцене 2 для выбора файла
-        HBox pathContainer = new HBox(30); // 10 - отступ между кнопками
-        pathContainer.getChildren().addAll(selectFileButton, pathTextField);
-        pathContainer.setAlignment(Pos.TOP_LEFT);
-        pathContainer.setPadding(new Insets(50)); // Отступы
+        // Создаем контейнер на сцене 1 для выбора файла
+        HBox pathContainerHBox = new HBox(20); // отступ
+        pathContainerHBox.getChildren().addAll(selectFileButton, pathTextField);
+        pathContainerHBox.setAlignment(Pos.TOP_LEFT);
 
-        // Создаем контейнер на сцене 2 для введения ключа
-        HBox keyContainer = new HBox(30); // 10 - отступ между компонентами
-        keyContainer.getChildren().addAll(text2, keyTextField);
+        VBox pathContainerVbox = new VBox(20);
+        pathContainerVbox.getChildren().addAll(pathContainerHBox,textMessage1);
+        pathContainerVbox.setAlignment(Pos.TOP_LEFT);
+        pathContainerVbox.setPadding(new Insets(20));
+
+        // Создаем контейнер на сцене 1 для введения ключа
+        HBox keyContainer = new HBox(20); // 10 - отступ между компонентами
+        keyContainer.getChildren().addAll(textForKey, keyTextField);
 //        keyContainer.setAlignment(Pos.TOP_LEFT);
-        keyContainer.setPadding(new Insets(50)); // Отступы
+        keyContainer.setPadding(new Insets(20)); // Отступы
 
-        VBox scene2VBOX = new VBox(30);
-        scene2VBOX.getChildren().addAll(pathContainer, keyContainer);
-        scene2VBOX.setAlignment(Pos.CENTER);
-        scene2VBOX.setPadding(new Insets(50)); // Отступы
+        VBox buttonsBox = new VBox(30);
+        buttonsBox.getChildren().addAll(encryptButton, decryptButton1, decryptButton2, decryptButton3, exitButton);
+        buttonsBox.setAlignment(Pos.CENTER);
+        buttonsBox.setPadding(new Insets(20)); // Отступы
 
         // Создаем контейнер root на Сцене 1
         VBox root = new VBox(30); // Отступ между компонентами
-        root.setPadding(new Insets(50)); // Отступы
-        root.getChildren().addAll(text1, mode1Button, mode2Button);
+        root.setPadding(new Insets(10)); // Отступы
+        root.getChildren().addAll(pathContainerVbox, keyContainer, buttonsBox);
         root.setAlignment(Pos.CENTER);
 
-        scene1 = new Scene(root, 840, 300);
-        scene2 = new Scene(scene2VBOX, 840, 300);
+        scene1 = new Scene(root, 840, 600);
         stage.setTitle("Итоговый проект по Модулю 1");
         stage.setScene(scene1);
         stage.show();
@@ -136,4 +149,6 @@ public class MyApplication extends Application {
         System.out.println("Ключ: " + key); // Выводим ключ в консоль
         return Integer.parseInt(key);
     }
+
+
 }
