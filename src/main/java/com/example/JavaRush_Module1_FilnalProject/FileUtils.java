@@ -11,7 +11,7 @@ public class FileUtils {
     private static Path inputPath;
     private static Path outputPath;
     private static String fileExtension;
-    private static StringBuilder sb;
+    private static StringBuilder text;
 
     public static Path getInputPath() {
         return inputPath;
@@ -25,13 +25,13 @@ public class FileUtils {
         return fileExtension;
     }
 
-    public static StringBuilder getSb() {
-        return sb;
+    public static StringBuilder getText() {
+        return text;
     }
 
     public static StringBuilder read(String pathString) throws UnsupportedFileException {
         inputPath = Path.of(pathString);
-        sb = new StringBuilder();
+        text = new StringBuilder();
         // Определение расширения файла
         if (inputPath.toFile().getName().endsWith(".docx")) {
             readDocx();
@@ -40,7 +40,7 @@ public class FileUtils {
         } else {
             throw new UnsupportedFileException("Unsupported file type: " + inputPath.toFile().getName());
         }
-        return sb;
+        return text;
     }
 
     // Чтение docx и запись в StringBuilder
@@ -48,7 +48,7 @@ public class FileUtils {
         try (XWPFDocument doc = new XWPFDocument(new FileInputStream(inputPath.toFile()))) {
             // Чтение текста из параграфов документа и запись в StringBuilder
             for (XWPFParagraph p : doc.getParagraphs()) {
-                sb.append(p.getText()).append("\n");
+                text.append(p.getText()).append("\n");
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -62,7 +62,7 @@ public class FileUtils {
         try (Reader reader = new InputStreamReader(new FileInputStream(inputPath.toFile()), StandardCharsets.UTF_8)) {
             int i = -1;
             while ((i = reader.read()) != -1) {
-                sb.append((char) i);      //Запись всего текст в Стрингбилдер
+                text.append((char) i);      //Запись всего текст в Стрингбилдер
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -72,7 +72,7 @@ public class FileUtils {
     }
 
     public static void write(StringBuilder sb) {
-        FileUtils.sb = sb;
+        FileUtils.text = sb;
         File inputFile = new File(inputPath.toUri());
         if (inputPath.toFile().getName().endsWith(".docx")) {
             outputPath = (new File(inputFile.getParent(), "output.docx")).toPath(); // Указываем путь к новому файлу формата docx
@@ -86,19 +86,19 @@ public class FileUtils {
     // Запись StringBuilder в docx
     private static void writeDocx() {
         try (XWPFDocument newDoc = new XWPFDocument();
-             FileOutputStream out = new FileOutputStream(outputPath.toFile())){
+             FileOutputStream out = new FileOutputStream(outputPath.toFile())) {
             XWPFParagraph p = newDoc.createParagraph();
-            p.createRun().setText(sb.toString());
+            p.createRun().setText(text.toString());
             newDoc.write(out);
         } catch (IOException e) {
-        System.out.println("Ошибка при обработке файлов: " + e.getMessage());
+            System.out.println("Ошибка при обработке файлов: " + e.getMessage());
         }
     }
 
     // Запись StringBuilder в txt
     private static void writeTxt() {
         try (FileWriter writer = new FileWriter(outputPath.toFile())) {
-            writer.write(sb.toString());
+            writer.write(text.toString());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
