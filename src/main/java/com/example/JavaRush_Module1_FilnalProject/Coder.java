@@ -39,4 +39,30 @@ public class Coder {
         index = (index - key + ALPHABET.length) % ALPHABET.length;  // Получаем новый индекс с учетом сдвига
         return ALPHABET[index];
     }
+
+    public static StringBuilder decrypt(StringBuilder text) {
+        char[] result = new char[text.length()];
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if (Character.isUpperCase(ch)) {
+                result[i] = Character.toUpperCase(decryptChar(Character.toLowerCase(ch)));
+            } else {
+                result[i] = decryptChar(ch);
+            }
+        }
+        text.delete(0, text.length() - 1);  // Очищаем стрингбилдер
+        for (int i = 0; i < result.length; i++) {
+            text.append(result[i]); // Записываем результат в стрингбилдер
+        }
+        return text;
+    }
+
+    private static char decryptChar(char ch) {
+        int index = Arrays.binarySearch(ALPHABET, ch);
+        if (index < 0) {
+            return ch;
+        }
+        index = (index - key + ALPHABET.length) % ALPHABET.length;
+        return ALPHABET[index];
+    }
 }

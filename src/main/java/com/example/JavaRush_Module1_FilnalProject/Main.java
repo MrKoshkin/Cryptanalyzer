@@ -20,10 +20,11 @@ public class Main {
         setAlphabet();  //Создаем алфавитные справочники
 //        System.out.println(upperCaseAlphabet);
         System.out.println(mergedAlphabet);
-        stringBuilder = readFile(Path.of("C:\\Users\\s.koshkin\\Desktop\\СЗ на лицензию Smartsheet.txt"));  //Записываем в стрингбилдер наш файл
+//        stringBuilder = readFile(Path.of("C:\\Users\\s.koshkin\\Desktop\\СЗ на лицензию Smartsheet.txt"));  //Записываем в стрингбилдер наш файл
+        stringBuilder = readFile(Path.of("C:\\Users\\s.koshkin\\Desktop\\13698402.txt"));
         int key = -3;
         stringBuilder = Coder_old.encrypt(stringBuilder, key);      //Шифруем файл со сдвигом key
-        stringBuilder = Coder_old.decrypt(stringBuilder, key);    //Дешифруем файл со сдвигом key
+//        stringBuilder = Coder.decrypt(stringBuilder, key);    //Дешифруем файл со сдвигом key
         writeFile(Path.of("log.txt"));
     }
 

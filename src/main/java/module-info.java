@@ -7,6 +7,7 @@ module com.example.module1_filnalproject {
     requires org.kordamp.ikonli.javafx;
     requires org.apache.poi.ooxml;
 
+
     opens com.example.JavaRush_Module1_FilnalProject to javafx.fxml;
     exports com.example.JavaRush_Module1_FilnalProject;
 }
