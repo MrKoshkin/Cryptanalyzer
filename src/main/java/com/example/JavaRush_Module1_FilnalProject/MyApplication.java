@@ -61,35 +61,56 @@ public class MyApplication extends Application {
 //            Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
 
             // Кнопка зашифровать
-            encryptButton = new Button("Зашифровать по ключу");
-            encryptButton.setPrefWidth(300); // ширина кнопки
-            encryptButton.setPrefHeight(40); // высота кнопки
-            encryptButton.setOnAction(actionEvent -> {
-                if (pathTextField.getText().isEmpty()) {    // Проверка на пустой путь
-                    AlertMessage.wrongPathMessage();
-                } else if (keyTextField.getText().isEmpty()) {    // Проверка на пустой ключ
-                    AlertMessage.wrongKeyMessage();
-                } else {
-                    Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
-                    try {
-                        StringBuilder text = FileUtils.read(pathTextField.getText());
-                        StringBuilder encryptedText = Coder.encrypt(text);
-                        FileUtils.write(encryptedText);
-                    } catch (UnsupportedFileException e) {
-                        throw new RuntimeException(e);
+            {
+                encryptButton = new Button("Зашифровать по ключу");
+                encryptButton.setPrefWidth(300); // ширина кнопки
+                encryptButton.setPrefHeight(40); // высота кнопки
+                encryptButton.setOnAction(actionEvent -> {
+                    if (pathTextField.getText().isEmpty()) {    // Проверка на пустой путь
+                        AlertMessage.wrongPathMessage("Выберите файл для шифрования");
+                    } else if (keyTextField.getText().isEmpty()) {    // Проверка на пустой ключ
+                        AlertMessage.wrongKeyMessage("Введите целочисленный ключ (сдвиг)");
+                    } else {
+                        Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
+                        try {
+                            StringBuilder text = FileUtils.read(pathTextField.getText());
+                            StringBuilder encryptedText = Coder.encrypt(text);
+                            FileUtils.write(encryptedText);
+                            pathTextField.setText(FileUtils.getOutputPath().toString());
+                        } catch (UnsupportedFileException e) {
+                            throw new RuntimeException(e);
+                        }
+                        AlertMessage.successMessage("Файл успешно зашифрован");
                     }
-                }
-            });
+                });
+            }
 
             // Кнопка расшифровать по ключу
-            decryptButton1 = new Button("Расшифровать с помощью ключа");
-            decryptButton1.setPrefWidth(300); // ширина кнопки
-            decryptButton1.setPrefHeight(40); // высота кнопки
-            decryptButton1.setOnAction(actionEvent -> {
+            {
+                decryptButton1 = new Button("Расшифровать с помощью ключа");
+                decryptButton1.setPrefWidth(300); // ширина кнопки
+                decryptButton1.setPrefHeight(40); // высота кнопки
+                decryptButton1.setOnAction(actionEvent -> {
+                    if (pathTextField.getText().isEmpty()) {    // Проверка на пустой путь
+                        AlertMessage.wrongPathMessage("Выберите файл для расшифровки");
+                    } else if (keyTextField.getText().isEmpty()) {    // Проверка на пустой ключ
+                        AlertMessage.wrongKeyMessage("Введите целочисленный ключ (сдвиг)");
+                    } else {
+                        Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
+                        try {
+                            StringBuilder text = FileUtils.read(pathTextField.getText());
+                            StringBuilder decryptedText = Coder.decrypt(text);
+                            FileUtils.write(decryptedText);
+                            System.out.println("Файл расшифрован");
+                        } catch (UnsupportedFileException e) {
+                            throw new RuntimeException(e);
+                        }
+                        AlertMessage.successMessage("Файл успешно расшифрован");
+                    }
+                });
+            }
 
-            });
-
-            // Кнопка расшифровать по ключу
+            // Кнопка расшифровать BruteForce
             decryptButton2 = new Button("Расшифровать с помощью brute force");
             decryptButton2.setPrefWidth(300); // ширина кнопки
             decryptButton2.setPrefHeight(40); // высота кнопки
@@ -97,7 +118,7 @@ public class MyApplication extends Application {
 
             });
 
-            // Кнопка расшифровать по ключу
+            // Кнопка расшифровать методом стат анализа
             decryptButton3 = new Button("Расшифровать с помощью стат. анализа");
             decryptButton3.setPrefWidth(300); // ширина кнопки
             decryptButton3.setPrefHeight(40); // высота кнопки

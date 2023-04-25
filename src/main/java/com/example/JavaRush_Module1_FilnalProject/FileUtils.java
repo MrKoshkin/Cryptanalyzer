@@ -6,6 +6,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.awt.Desktop;
 
 public class FileUtils {
     private static Path inputPath;
@@ -103,6 +104,20 @@ public class FileUtils {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void openFile() {
+        File file = outputPath.toFile();
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            if (file.exists()) {
+                try {
+                    desktop.open(file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

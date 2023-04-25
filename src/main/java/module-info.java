@@ -6,6 +6,7 @@ module com.example.module1_filnalproject {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.apache.poi.ooxml;
+    requires java.desktop;
 
 
     opens com.example.JavaRush_Module1_FilnalProject to javafx.fxml;
