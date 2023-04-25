@@ -21,9 +21,13 @@ public class Coder {
         char[] result = new char[text.length()];
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
-            if (Character.isUpperCase(ch)) {    // Заглавные буквы
-                result[i] = Character.toUpperCase(encryptChar(Character.toLowerCase(ch)));
-            } else {    // Строчные буквы
+            if (Character.isLetter(ch)) {
+                if (Character.isUpperCase(ch)) {    // Заглавные буквы
+                    result[i] = Character.toUpperCase(encryptChar(Character.toLowerCase(ch)));
+                } else {    // Строчные буквы
+                    result[i] = encryptChar(ch);
+                }
+            } else {
                 result[i] = encryptChar(ch);
             }
         }
@@ -35,12 +39,15 @@ public class Coder {
     }
 
     private static char encryptChar(char ch) {
-        int index = Arrays.binarySearch(ALPHABET, ch);  // Определение индекса символа в алфавите
-        if (index < 0) {    // Нет такого символа в алфавите
-            return ch;
+//        int index = Arrays.binarySearch(ALPHABET, ch);  // Определение индекса символа в алфавите
+        int index = 0;
+        for (int i = 0; i < ALPHABET.length; i++) {
+            if (ALPHABET[i]==ch) {
+                index = (i + key) % ALPHABET.length;  // Получаем новый индекс с учетом сдвига
+                return ALPHABET[index];
+            }
         }
-        index = (index + key) % ALPHABET.length;  // Получаем новый индекс с учетом сдвига
-        return ALPHABET[index];
+        return ch;
     }
 
     public static StringBuilder decrypt(StringBuilder text, int key) {
@@ -49,8 +56,12 @@ public class Coder {
         char[] result = new char[text.length()];
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
-            if (Character.isUpperCase(ch)) {
-                result[i] = Character.toUpperCase(decryptChar(Character.toLowerCase(ch)));
+            if (Character.isLetter(ch)) {
+                if (Character.isUpperCase(ch)) {
+                    result[i] = Character.toUpperCase(decryptChar(Character.toLowerCase(ch)));
+                } else {
+                    result[i] = decryptChar(ch);
+                }
             } else {
                 result[i] = decryptChar(ch);
             }
@@ -63,11 +74,14 @@ public class Coder {
     }
 
     private static char decryptChar(char ch) {
-        int index = Arrays.binarySearch(ALPHABET, ch);
-        if (index < 0) {
-            return ch;
+//        int index = Arrays.binarySearch(ALPHABET, ch);
+        int index = 0;
+        for (int i = 0; i < ALPHABET.length; i++) {
+            if (ALPHABET[i]==ch) {
+                index = (i - key + ALPHABET.length) % ALPHABET.length;
+                return ALPHABET[index];
+            }
         }
-        index = (index - key + ALPHABET.length) % ALPHABET.length;
-        return ALPHABET[index];
+        return ch;
     }
 }
