@@ -12,6 +12,7 @@ public class Coder {
 
     public static void setKey(int key) {
         Coder.key = key;
+        System.out.println("Установлен ключ: " + key);
     }
 
     public static StringBuilder encrypt(StringBuilder text) {
@@ -36,7 +37,7 @@ public class Coder {
         if (index < 0) {    // Нет такого символа в алфавите
             return ch;
         }
-        index = (index - key + ALPHABET.length) % ALPHABET.length;  // Получаем новый индекс с учетом сдвига
+        index = (index + key) % ALPHABET.length;  // Получаем новый индекс с учетом сдвига
         return ALPHABET[index];
     }
 

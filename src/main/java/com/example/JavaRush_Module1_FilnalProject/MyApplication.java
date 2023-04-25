@@ -65,7 +65,20 @@ public class MyApplication extends Application {
             encryptButton.setPrefWidth(300); // ширина кнопки
             encryptButton.setPrefHeight(40); // высота кнопки
             encryptButton.setOnAction(actionEvent -> {
-
+                if (pathTextField.getText().isEmpty()) {    // Проверка на пустой путь
+                    AlertMessage.wrongPathMessage();
+                } else if (keyTextField.getText().isEmpty()) {    // Проверка на пустой ключ
+                    AlertMessage.wrongKeyMessage();
+                } else {
+                    Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
+                    try {
+                        StringBuilder text = FileUtils.read(pathTextField.getText());
+                        StringBuilder encryptedText = Coder.encrypt(text);
+                        FileUtils.write(encryptedText);
+                    } catch (UnsupportedFileException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             });
 
             // Кнопка расшифровать по ключу
