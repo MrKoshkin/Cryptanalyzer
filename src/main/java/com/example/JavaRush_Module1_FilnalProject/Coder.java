@@ -15,7 +15,9 @@ public class Coder {
         System.out.println("Установлен ключ: " + key);
     }
 
-    public static StringBuilder encrypt(StringBuilder text) {
+    public static StringBuilder encrypt(StringBuilder text, int key) {
+        Coder.key = key;
+        System.out.println("Установлен ключ: " + key);
         char[] result = new char[text.length()];
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
@@ -41,7 +43,9 @@ public class Coder {
         return ALPHABET[index];
     }
 
-    public static StringBuilder decrypt(StringBuilder text) {
+    public static StringBuilder decrypt(StringBuilder text, int key) {
+        Coder.key = key;
+        System.out.println("Установлен ключ: " + key);
         char[] result = new char[text.length()];
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);

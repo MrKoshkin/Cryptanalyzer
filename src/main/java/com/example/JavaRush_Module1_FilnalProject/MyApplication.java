@@ -37,7 +37,7 @@ public class MyApplication extends Application {
                 File selectedFile = fileChooser.showOpenDialog(stage);
                 if (selectedFile != null) {
                     pathTextField.setText(selectedFile.getAbsolutePath());
-                    System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
+//                    System.out.println("Выбран файл: " + selectedFile.getAbsolutePath());
                 }
             });
 
@@ -71,16 +71,20 @@ public class MyApplication extends Application {
                     } else if (keyTextField.getText().isEmpty()) {    // Проверка на пустой ключ
                         AlertMessage.wrongKeyMessage("Введите целочисленный ключ (сдвиг)");
                     } else {
-                        Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
                         try {
-                            StringBuilder text = FileUtils.read(pathTextField.getText());
-                            StringBuilder encryptedText = Coder.encrypt(text);
-                            FileUtils.write(encryptedText);
-                            pathTextField.setText(FileUtils.getOutputPath().toString());
+                            int key = Integer.parseInt(keyTextField.getText());   // Определение ключа
+                            StringBuilder text = FileUtils.read(pathTextField.getText());   // Преобразование входящего файла в стрингбилдер
+                            System.out.println("Выбран файл: " + FileUtils.getInputPath());
+                            StringBuilder encryptedText = Coder.encrypt(text, key);  // Шифруем
+                            FileUtils.write(encryptedText); // Записываем в новый файл
+                            pathTextField.setText(FileUtils.getOutputPath().toString());    // Подставляем путь нового файла в текстовое поле
+                            System.out.println("Файл зашифрован по адресу: " + FileUtils.getOutputPath());
+                            AlertMessage.successMessage("Файл успешно зашифрован");
                         } catch (UnsupportedFileException e) {
                             throw new RuntimeException(e);
+                        } catch (NumberFormatException e) {
+                            AlertMessage.wrongKeyMessage("Введите целочисленный ключ (сдвиг)");
                         }
-                        AlertMessage.successMessage("Файл успешно зашифрован");
                     }
                 });
             }
@@ -96,16 +100,19 @@ public class MyApplication extends Application {
                     } else if (keyTextField.getText().isEmpty()) {    // Проверка на пустой ключ
                         AlertMessage.wrongKeyMessage("Введите целочисленный ключ (сдвиг)");
                     } else {
-                        Coder.setKey(Integer.parseInt(keyTextField.getText()));   // Определение ключа
                         try {
-                            StringBuilder text = FileUtils.read(pathTextField.getText());
-                            StringBuilder decryptedText = Coder.decrypt(text);
-                            FileUtils.write(decryptedText);
-                            System.out.println("Файл расшифрован");
+                            int key = Integer.parseInt(keyTextField.getText());   // Определение ключа
+                            StringBuilder text = FileUtils.read(pathTextField.getText());     // Преобразование входящего файла в стрингбилдер
+                            System.out.println("Выбран файл: " + FileUtils.getInputPath());
+                            StringBuilder decryptedText = Coder.decrypt(text, key);  // Шифруем
+                            FileUtils.write(decryptedText); // Записываем в новый файл
+                            System.out.println("Файл расшифрован по адресу: " + FileUtils.getOutputPath());
+                            AlertMessage.successMessage("Файл успешно расшифрован");
                         } catch (UnsupportedFileException e) {
                             throw new RuntimeException(e);
+                        } catch (NumberFormatException e) {
+                            AlertMessage.wrongKeyMessage("Введите целочисленный ключ (сдвиг)");
                         }
-                        AlertMessage.successMessage("Файл успешно расшифрован");
                     }
                 });
             }

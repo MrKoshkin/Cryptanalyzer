@@ -173,8 +173,5 @@ class Coder_old {
             System.out.println("File is empty!");
             return;
         }
-
-        int key = bruteForceKeyFinder(stringBuilder);
-        decrypt(stringBuilder, key);
     }
 }
