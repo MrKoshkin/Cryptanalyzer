@@ -107,9 +107,10 @@ public class FileUtils {
         }
     }
 
+    // Открытие файла в ОС
     public static void openFile() {
         File file = outputPath.toFile();
-        if (Desktop.isDesktopSupported()) {
+        if (Desktop.isDesktopSupported()) {    // Проверка на совместимость системы
             Desktop desktop = Desktop.getDesktop();
             if (file.exists()) {
                 try {

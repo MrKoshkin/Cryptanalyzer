@@ -78,7 +78,7 @@ public class Coder {
         int index = 0;
         for (int i = 0; i < ALPHABET.length; i++) {
             if (ALPHABET[i]==ch) {
-                index = (i - key + ALPHABET.length) % ALPHABET.length;
+                index = (i - key + ALPHABET.length) % ALPHABET.length;  // Получаем новый индекс с учетом сдвига
                 return ALPHABET[index];
             }
         }

@@ -23,6 +23,7 @@ public class MyApplication extends Application {
     private TextField pathTextField, keyTextField;
     private Text textForKey, textMessage1;
     private Button selectFileButton, encryptButton, decryptButton1, decryptButton2, decryptButton3, exitButton;
+    private ActionEvent bruteForceEvent;
 
     @Override
     public void start(Stage stage) {
@@ -118,19 +119,25 @@ public class MyApplication extends Application {
             }
 
             // Кнопка расшифровать BruteForce
-            decryptButton2 = new Button("Расшифровать с помощью brute force");
-            decryptButton2.setPrefWidth(300); // ширина кнопки
-            decryptButton2.setPrefHeight(40); // высота кнопки
-            decryptButton2.setOnAction(actionEvent -> {
-
-            });
+            {
+                decryptButton2 = new Button("Расшифровать с помощью brute force");
+                decryptButton2.setPrefWidth(300); // ширина кнопки
+                decryptButton2.setPrefHeight(40); // высота кнопки
+                decryptButton2.setOnAction(bruteForceEvent -> {
+                    if (pathTextField.getText().isEmpty()) {    // Проверка на пустой путь
+                        AlertMessage.wrongPathMessage("Выберите файл для расшифровки");
+                    } else {
+                        //TODO
+                    }
+                });
+            }
 
             // Кнопка расшифровать методом стат анализа
             decryptButton3 = new Button("Расшифровать с помощью стат. анализа");
             decryptButton3.setPrefWidth(300); // ширина кнопки
             decryptButton3.setPrefHeight(40); // высота кнопки
             decryptButton3.setOnAction(actionEvent -> {
-
+                //TODO
             });
 
             // Кнопка выхода из программы
@@ -161,15 +168,16 @@ public class MyApplication extends Application {
 //        keyContainer.setAlignment(Pos.TOP_LEFT);
         keyContainer.setPadding(new Insets(20)); // Отступы
 
-        VBox buttonsBox = new VBox(30);
-        buttonsBox.getChildren().addAll(encryptButton, decryptButton1, decryptButton2, decryptButton3, exitButton);
-        buttonsBox.setAlignment(Pos.CENTER);
-        buttonsBox.setPadding(new Insets(20)); // Отступы
+        // Контейнер с кнопочками
+        VBox buttonsContainer = new VBox(30);
+        buttonsContainer.getChildren().addAll(encryptButton, decryptButton1, decryptButton2, decryptButton3, exitButton);
+        buttonsContainer.setAlignment(Pos.CENTER);
+        buttonsContainer.setPadding(new Insets(20)); // Отступы
 
         // Создаем контейнер root на Сцене 1
         VBox root = new VBox(30); // Отступ между компонентами
         root.setPadding(new Insets(10)); // Отступы
-        root.getChildren().addAll(pathContainerVbox, keyContainer, buttonsBox);
+        root.getChildren().addAll(pathContainerVbox, keyContainer, buttonsContainer);
         root.setAlignment(Pos.CENTER);
 
         scene1 = new Scene(root, 840, 600);
@@ -183,13 +191,5 @@ public class MyApplication extends Application {
         launch(args);
 
     }
-
-    // Обработчик события для кнопки ""
-    private int getKey(ActionEvent event) {
-        String key = pathTextField.getText(); // Получаем ключ из текстового поля
-        System.out.println("Ключ: " + key); // Выводим ключ в консоль
-        return Integer.parseInt(key);
-    }
-
 
 }

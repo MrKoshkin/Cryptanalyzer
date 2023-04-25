@@ -2,6 +2,7 @@ package com.example.JavaRush_Module1_FilnalProject;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import org.controlsfx.control.action.Action;
 
 import java.util.Optional;
 
@@ -39,5 +40,29 @@ public class AlertMessage {
 //        alert.setTitle("Неправильный ключ");
         alert.setHeaderText(text);
         alert.showAndWait();
+    }
+
+    public static void emptyKeyMessage() {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Отсутствует ключ");
+        alert.setHeaderText("Вы хотите расшифровать методом BruteForce?");
+
+        ButtonType buttonTypeYes = new ButtonType("Да");
+        ButtonType buttonTypeNo = new ButtonType("Нет");
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        alert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == buttonTypeYes) {
+                if (actionOnOK != null) {
+                    actionOnOK.run();
+                }
+            } else if (buttonType == cancelButton) {
+                if (actionOnCancel != null) {
+                    actionOnCancel.run();
+                }
+            }
+        });
     }
 }
