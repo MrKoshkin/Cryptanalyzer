@@ -31,11 +31,11 @@ public class Coder {
                 result[i] = encryptChar(ch);
             }
         }
-        text.delete(0, text.length() - 1);  // Очищаем стрингбилдер
+        StringBuilder resultSB = new StringBuilder();
         for (int i = 0; i < result.length; i++) {
-            text.append(result[i]); // Записываем результат в стрингбилдер
+            resultSB.append(result[i]); // Записываем результат в стрингбилдер
         }
-        return text;
+        return resultSB;
     }
 
     private static char encryptChar(char ch) {
@@ -66,11 +66,11 @@ public class Coder {
                 result[i] = decryptChar(ch);
             }
         }
-        text.delete(0, text.length() - 1);  // Очищаем стрингбилдер
+        StringBuilder resultSB = new StringBuilder();
         for (int i = 0; i < result.length; i++) {
-            text.append(result[i]); // Записываем результат в стрингбилдер
+            resultSB.append(result[i]); // Записываем результат в стрингбилдер
         }
-        return text;
+        return resultSB;
     }
 
     private static char decryptChar(char ch) {
