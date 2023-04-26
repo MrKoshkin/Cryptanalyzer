@@ -100,6 +100,7 @@ public class MyApplication extends Application {
                         AlertMessage.wrongPathMessage("Выберите файл для расшифровки");
                     } else if (keyTextField.getText().isEmpty()) {    // Проверка на пустой ключ
                         AlertMessage.wrongKeyMessage("Введите целочисленный ключ (сдвиг)");
+                        // TODO редирект в BruteForce
                     } else {
                         try {
                             int key = Integer.parseInt(keyTextField.getText());   // Определение ключа
@@ -127,7 +128,19 @@ public class MyApplication extends Application {
                     if (pathTextField.getText().isEmpty()) {    // Проверка на пустой путь
                         AlertMessage.wrongPathMessage("Выберите файл для расшифровки");
                     } else {
-                        //TODO
+                        try {
+                            StringBuilder text = FileUtils.read(pathTextField.getText());     // Преобразование входящего файла в стрингбилдер
+                            System.out.println("Выбран файл: " + FileUtils.getInputPath());
+                            int key = BruteForce.keyFinder(text);
+                            System.out.println("Подобранный ключ: " + key);
+                            StringBuilder decryptedText = Coder.decrypt(text, key);  // Шифруем
+                            FileUtils.write(decryptedText); // Записываем в новый файл
+                            System.out.println("Файл расшифрован по адресу: " + FileUtils.getOutputPath());
+                            AlertMessage.successMessage("Файл успешно расшифрован");
+                        } catch (UnsupportedFileException e) {
+                            throw new RuntimeException(e);
+                        }
+
                     }
                 });
             }

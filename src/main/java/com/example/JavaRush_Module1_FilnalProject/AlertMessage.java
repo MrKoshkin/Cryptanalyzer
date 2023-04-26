@@ -42,27 +42,27 @@ public class AlertMessage {
         alert.showAndWait();
     }
 
-    public static void emptyKeyMessage() {
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Отсутствует ключ");
-        alert.setHeaderText("Вы хотите расшифровать методом BruteForce?");
-
-        ButtonType buttonTypeYes = new ButtonType("Да");
-        ButtonType buttonTypeNo = new ButtonType("Нет");
-
-        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
-        alert.showAndWait().ifPresent(buttonType -> {
-            if (buttonType == buttonTypeYes) {
-                if (actionOnOK != null) {
-                    actionOnOK.run();
-                }
-            } else if (buttonType == cancelButton) {
-                if (actionOnCancel != null) {
-                    actionOnCancel.run();
-                }
-            }
-        });
-    }
+//    public static void emptyKeyMessage() {
+//
+//        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//        alert.setTitle("Отсутствует ключ");
+//        alert.setHeaderText("Вы хотите расшифровать методом BruteForce?");
+//
+//        ButtonType buttonTypeYes = new ButtonType("Да");
+//        ButtonType buttonTypeNo = new ButtonType("Нет");
+//
+//        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+//
+//        alert.showAndWait().ifPresent(buttonType -> {
+//            if (buttonType == buttonTypeYes) {
+//                if (actionOnOK != null) {
+//                    actionOnOK.run();
+//                }
+//            } else if (buttonType == cancelButton) {
+//                if (actionOnCancel != null) {
+//                    actionOnCancel.run();
+//                }
+//            }
+//        });
+//    }
 }
