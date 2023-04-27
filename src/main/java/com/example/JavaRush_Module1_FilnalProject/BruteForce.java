@@ -11,17 +11,15 @@ public class BruteForce {
     public static int keyFinder(StringBuilder text) {
         textLength = text.length();
         int key;
-        Map<Integer,Integer> resultMap = new HashMap<>();
-        int index = 0;
+        int result = 0;
         for (key = 1; key < ALPHABET.length; key++) {
             outputText = Coder.decrypt(text, key);
             if (spaceChecker() && sentenceChecker() && propositionChecker()) {
-                resultMap.put(index, key);
-                index++;
+                result = key;
             }
         }
-        if (resultMap.size()>0) {
-            return resultMap.get(0);
+        if (result != 0) {
+            return result;
         } else {
             return 0;  // не нашли ключ
         }
@@ -29,7 +27,7 @@ public class BruteForce {
 
     // Проверка на количество предложений, оканчивающихся точкой
     private static boolean sentenceChecker() {
-        int minSentenceCount = textLength / 350;    // Минимальное количество предложений в тексте
+        int minSentenceCount = textLength / 400;    // Минимальное количество предложений в тексте
         int currentCount = 0;
         for (int i = 0; i < textLength - 2; i++) {
             char ch = outputText.charAt(i);
@@ -45,9 +43,10 @@ public class BruteForce {
 
     // Проверка на количество предлогов и союзов
     private static boolean propositionChecker() {
-        int minPropositionCount = textLength / 90;  // Минимальное количество предлогов и союзов в тексте
+        int minPropositionCount = textLength / 100;  // Минимальное количество предлогов и союзов в тексте
         int currentCount = 0;
         for (int i = 0; i < textLength - 7; i++) {
+            String str = Character.toString(outputText.charAt(i)) + Character.toString(outputText.charAt(i + 1)) + Character.toString(outputText.charAt(i + 2)) + Character.toString(outputText.charAt(i + 3)) + Character.toString(outputText.charAt(i + 4)) + Character.toString(outputText.charAt(i + 5));
             if (outputText.charAt(i) == ' ') {
                 // Нашли предлог
                 if (Character.toLowerCase(outputText.charAt(i + 1)) == 'в' && outputText.charAt(i + 2) == ' ') {
@@ -101,7 +100,7 @@ public class BruteForce {
     }
 
     private static boolean spaceChecker() {
-        int minSpaceCount = textLength / 14;    // Минимальное количество пробелов в тексте
+        int minSpaceCount = textLength / 15;    // Минимальное количество пробелов в тексте
         int currentCount = 0;
         for (int i = 0; i < textLength; i++) {
             if (outputText.charAt(i) == ' ') {

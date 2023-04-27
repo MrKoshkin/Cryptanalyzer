@@ -19,7 +19,7 @@ import java.io.File;
 
 public class MyApplication extends Application {
     private Stage stage;
-    Scene scene1, scene2;
+    Scene scene1;
     private TextField pathTextField, keyTextField;
     private Text textForKey, textMessage1;
     private Button selectFileButton, encryptButton, decryptButton1, decryptButton2, decryptButton3, exitButton;
