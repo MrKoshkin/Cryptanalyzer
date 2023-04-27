@@ -132,7 +132,7 @@ public class MyApplication extends Application {
                             StringBuilder text = FileUtils.read(pathTextField.getText());     // Преобразование входящего файла в стрингбилдер
                             System.out.println("Выбран файл: " + FileUtils.getInputPath());
                             int key = BruteForce.keyFinder(text);
-                            if (key == 0) {
+                            if (key == Integer.MIN_VALUE) {
                                 AlertMessage.failBruteForceMessage("Brute Force не смог взломать шифр!");
                             } else {
                                 System.out.println("Подобранный ключ: " + key);

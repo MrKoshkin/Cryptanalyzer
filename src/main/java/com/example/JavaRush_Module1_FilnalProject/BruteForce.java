@@ -7,7 +7,7 @@ public class BruteForce {
     private static final char[] ALPHABET = Alphabet.getAlphabet();
     private static int textLength;
     private static StringBuilder outputText = new StringBuilder();
-    private static int alternativeResult = -666;
+    private static int alternativeResult = Integer.MIN_VALUE;
     private static int successCounter;
 
     public static int keyFinder(StringBuilder text) {
@@ -30,7 +30,7 @@ public class BruteForce {
         if (isFind) {
             return result;
         } else {
-            return 0;    // не нашли ключ
+            return Integer.MIN_VALUE;    // не нашли ключ
         }
     }
 

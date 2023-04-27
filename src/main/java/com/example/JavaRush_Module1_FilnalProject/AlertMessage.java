@@ -32,7 +32,7 @@ public class AlertMessage {
 //        alert.setTitle(text);
         alert.setHeaderText(text);
         ButtonType buttonTypeYes;
-        if (BruteForce.getAlternativeResult() != -666) {
+        if (BruteForce.getAlternativeResult() != Integer.MIN_VALUE) {
             alert.setContentText("Наиболее подходящий ключ: " + BruteForce.getAlternativeResult());
             buttonTypeYes = new ButtonType("Хорошо");
         } else {
