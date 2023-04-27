@@ -16,7 +16,11 @@ public class Coder {
     }
 
     public static StringBuilder encrypt(StringBuilder text, int key) {
-        Coder.key = key;
+        if (key >= 0) {
+            Coder.key = key;
+        } else {
+            Coder.key = -key;
+        }
         System.out.println("Установлен ключ: " + key);
         char[] result = new char[text.length()];
         for (int i = 0; i < text.length(); i++) {
@@ -51,7 +55,11 @@ public class Coder {
     }
 
     public static StringBuilder decrypt(StringBuilder text, int key) {
-        Coder.key = key;
+        if (key >= 0) {
+            Coder.key = key;
+        } else {
+            Coder.key = -key;
+        }
         System.out.println("Установлен ключ: " + key);
         char[] result = new char[text.length()];
         for (int i = 0; i < text.length(); i++) {

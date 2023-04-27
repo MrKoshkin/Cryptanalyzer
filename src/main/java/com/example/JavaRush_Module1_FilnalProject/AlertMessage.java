@@ -27,6 +27,26 @@ public class AlertMessage {
         }
     }
 
+    public static void failBruteForceMessage(String text) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle(text);
+        alert.setHeaderText(text);
+        ButtonType buttonTypeYes;
+        if (BruteForce.getAlternativeResult() != -666) {
+            alert.setContentText("Наиболее подходящий ключ: " + BruteForce.getAlternativeResult());
+            buttonTypeYes = new ButtonType("Хорошо");
+        } else {
+            buttonTypeYes = new ButtonType("Очень жаль");
+        }
+
+        alert.getButtonTypes().setAll(buttonTypeYes);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeYes){
+
+        }
+    }
+
     public static void wrongPathMessage(String text) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
 //        alert.setTitle("Некорректный путь");

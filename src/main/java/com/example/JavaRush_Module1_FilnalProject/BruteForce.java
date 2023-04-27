@@ -7,21 +7,30 @@ public class BruteForce {
     private static final char[] ALPHABET = Alphabet.getAlphabet();
     private static int textLength;
     private static StringBuilder outputText = new StringBuilder();
+    private static int alternativeResult = -666;
+    private static int successCounter;
 
     public static int keyFinder(StringBuilder text) {
         textLength = text.length();
+        boolean isFind = false;
         int key;
         int result = 0;
-        for (key = 1; key < ALPHABET.length; key++) {
+        for (key = 0; key < ALPHABET.length; key++) {
             outputText = Coder.decrypt(text, key);
-            if (spaceChecker() && sentenceChecker() && propositionChecker()) {
+            successCounter = 0;
+            if (spaceChecker() && sentenceChecker() && propositionChecker()) {  // Ключ прошел все проверки
                 result = key;
+                isFind = true;
             }
+            if (successCounter >= 2) {
+                alternativeResult = key;
+            }
+
         }
-        if (result != 0) {
+        if (isFind) {
             return result;
         } else {
-            return 0;  // не нашли ключ
+            return 0;    // не нашли ключ
         }
     }
 
@@ -38,6 +47,9 @@ public class BruteForce {
             }
         }
         System.out.println("Количество предложений: " + currentCount + " / " + minSentenceCount);   /* Логирование */
+        if (currentCount >= minSentenceCount){
+            successCounter++;
+        }
         return currentCount >= minSentenceCount;
     }
 
@@ -96,6 +108,9 @@ public class BruteForce {
             }
         }
         System.out.println("Количество предлогов: " + currentCount + " / " + minPropositionCount);   /* Логирование */
+        if (currentCount >= minPropositionCount){
+            successCounter++;
+        }
         return currentCount >= minPropositionCount;
     }
 
@@ -108,6 +123,13 @@ public class BruteForce {
             }
         }
         System.out.println("Количество пробелов: " + currentCount + " / " + minSpaceCount);   /* Логирование */
+        if (currentCount >= minSpaceCount){
+            successCounter++;
+        }
         return currentCount >= minSpaceCount;
+    }
+
+    public static int getAlternativeResult() {
+        return alternativeResult;
     }
 }

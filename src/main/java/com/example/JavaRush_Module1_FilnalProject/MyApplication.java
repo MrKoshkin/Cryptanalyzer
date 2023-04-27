@@ -132,11 +132,15 @@ public class MyApplication extends Application {
                             StringBuilder text = FileUtils.read(pathTextField.getText());     // Преобразование входящего файла в стрингбилдер
                             System.out.println("Выбран файл: " + FileUtils.getInputPath());
                             int key = BruteForce.keyFinder(text);
-                            System.out.println("Подобранный ключ: " + key);
-                            StringBuilder decryptedText = Coder.decrypt(text, key);  // Шифруем
-                            FileUtils.write(decryptedText); // Записываем в новый файл
-                            System.out.println("Файл расшифрован по адресу: " + FileUtils.getOutputPath());
-                            AlertMessage.successMessage("Файл успешно расшифрован");
+                            if (key == 0) {
+                                AlertMessage.failBruteForceMessage("Brute Force не смог взломать шифр!");
+                            } else {
+                                System.out.println("Подобранный ключ: " + key);
+                                StringBuilder decryptedText = Coder.decrypt(text, key);  // Шифруем
+                                FileUtils.write(decryptedText); // Записываем в новый файл
+                                System.out.println("Файл расшифрован по адресу: " + FileUtils.getOutputPath());
+                                AlertMessage.successMessage("Файл успешно расшифрован");
+                            }
                         } catch (UnsupportedFileException e) {
                             throw new RuntimeException(e);
                         }
@@ -163,15 +167,13 @@ public class MyApplication extends Application {
         }
 
 
-
-
         // Создаем контейнер на сцене 1 для выбора файла
         HBox pathContainerHBox = new HBox(20); // отступ
         pathContainerHBox.getChildren().addAll(selectFileButton, pathTextField);
         pathContainerHBox.setAlignment(Pos.TOP_LEFT);
 
         VBox pathContainerVbox = new VBox(20);
-        pathContainerVbox.getChildren().addAll(pathContainerHBox,textMessage1);
+        pathContainerVbox.getChildren().addAll(pathContainerHBox, textMessage1);
         pathContainerVbox.setAlignment(Pos.TOP_LEFT);
         pathContainerVbox.setPadding(new Insets(20));
 
