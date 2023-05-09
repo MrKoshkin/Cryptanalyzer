@@ -3,7 +3,7 @@ package com.example.JavaRush_Module1_FilnalProject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BruteForce {
+public class BruteForce implements DecryptAble{
     private static final char[] ALPHABET = Alphabet.getAlphabet();
     private static int textLength;
     private static StringBuilder outputText = new StringBuilder();

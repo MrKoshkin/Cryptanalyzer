@@ -2,7 +2,7 @@ package com.example.JavaRush_Module1_FilnalProject;
 
 import java.util.Arrays;
 
-public class Coder {
+public class Coder implements DecryptAble {
     private static final char[] ALPHABET = Alphabet.getAlphabet();
     private static int key;
 
