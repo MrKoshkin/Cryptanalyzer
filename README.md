@@ -1,2 +1,3 @@
-<h2 align="center">Module 1 Final project </h2>
+<h2 align="center">Cryptanalyzer</h2>
 <h3 align="center">"Caesar's cipher"</h2>
+<h3 align="center">"The application can decrypt by key, Brute Force and statistical analysis methods"</h2>
